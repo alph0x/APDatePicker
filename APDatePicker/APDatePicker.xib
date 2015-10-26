@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="APDatePicker">
+            <connections>
+                <outlet property="daysCollection" destination="GHC-6X-hWZ" id="BgA-8n-kw6"/>
+                <outlet property="monthCollection" destination="Bmn-E1-te3" id="txu-mD-geJ"/>
+                <outlet property="nextMonthButton" destination="VpU-3w-GFh" id="aQq-o3-obQ"/>
+                <outlet property="nextWeekButton" destination="s8f-hY-4bp" id="mSx-fp-dHY"/>
+                <outlet property="previousMonthButton" destination="YNJ-su-Jw8" id="hrT-L0-D6a"/>
+                <outlet property="previousWeekButton" destination="M7Q-U6-y0C" id="OtS-hI-Jgs"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="602" placeholderIntrinsicHeight="136" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="ybc-zw-3sx">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRH-Au-v6w">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="28"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNJ-su-Jw8">
+                                    <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                    <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="28" id="vZC-Xx-j0c"/>
+                                        <constraint firstAttribute="width" secondItem="YNJ-su-Jw8" secondAttribute="height" multiplier="1:1" id="wpL-AG-zwU"/>
+                                    </constraints>
+                                    <state key="normal" title="&lt;">
+                                        <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Bmn-E1-te3">
+                                    <rect key="frame" x="28" y="0.0" width="264" height="28"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" id="xhD-jr-c2c"/>
+                                    </constraints>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7c2-fZ-inl">
+                                        <size key="itemSize" width="50" height="50"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpU-3w-GFh">
+                                    <rect key="frame" x="292" y="0.0" width="28" height="28"/>
+                                    <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="VpU-3w-GFh" secondAttribute="height" multiplier="1:1" id="Cew-EY-96L"/>
+                                        <constraint firstAttribute="width" constant="28" id="w0d-DK-pbt"/>
+                                    </constraints>
+                                    <state key="normal" title="&gt;">
+                                        <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <animations/>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQC-qR-TbS">
+                            <rect key="frame" x="0.0" y="39" width="320" height="49"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7Q-U6-y0C">
+                                    <rect key="frame" x="0.0" y="0.0" width="27" height="49"/>
+                                    <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="49" id="M00-oD-4Kf"/>
+                                        <constraint firstAttribute="width" secondItem="M7Q-U6-y0C" secondAttribute="height" multiplier="1:1.8" id="NS5-GX-1JO"/>
+                                    </constraints>
+                                    <state key="normal" title="&lt;">
+                                        <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GHC-6X-hWZ">
+                                    <rect key="frame" x="27" y="0.0" width="266" height="49"/>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="49" id="c6S-7v-CQG"/>
+                                    </constraints>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bIC-85-QUO">
+                                        <size key="itemSize" width="50" height="50"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s8f-hY-4bp">
+                                    <rect key="frame" x="293" y="0.0" width="27" height="49"/>
+                                    <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="s8f-hY-4bp" secondAttribute="height" multiplier="1:1.8" id="q0b-ns-ekB"/>
+                                        <constraint firstAttribute="height" constant="49" id="wrS-HK-h2g"/>
+                                    </constraints>
+                                    <state key="normal" title="&gt;">
+                                        <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <animations/>
+                        </stackView>
+                    </subviews>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="4ne-HG-hOi"/>
+                        <constraint firstItem="QQC-qR-TbS" firstAttribute="top" secondItem="ybc-zw-3sx" secondAttribute="top" constant="79" id="xMb-7i-3cw"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="xMb-7i-3cw"/>
+                        </mask>
+                    </variation>
+                </stackView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" red="0.1450980392" green="0.82745098039999998" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ybc-zw-3sx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="08C-my-Qju"/>
+                <constraint firstItem="ybc-zw-3sx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FTS-kE-XHR"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="644" y="483"/>
+        </view>
+    </objects>
+</document>

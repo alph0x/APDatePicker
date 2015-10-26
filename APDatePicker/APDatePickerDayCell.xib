@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dayCell" id="gTV-IL-0wX" customClass="APDatePickerDayCell">
+            <rect key="frame" x="0.0" y="0.0" width="38" height="49"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="38" height="49"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SKU-4n-FX9">
+                        <rect key="frame" x="4" y="16" width="30" height="29"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="SKU-4n-FX9" secondAttribute="height" multiplier="67:64" id="cxr-D9-jSJ"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxW-Lv-JlP">
+                        <rect key="frame" x="4" y="16" width="30" height="29"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHORT_DAY_NAME" textAlignment="natural" lineBreakMode="middleTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXt-oK-7qA">
+                        <rect key="frame" x="0.0" y="2" width="38" height="10"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                        <color key="textColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <animations/>
+            <constraints>
+                <constraint firstItem="GXt-oK-7qA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0aH-IX-4J6"/>
+                <constraint firstItem="fxW-Lv-JlP" firstAttribute="leading" secondItem="SKU-4n-FX9" secondAttribute="leading" id="17V-jV-1BD"/>
+                <constraint firstItem="fxW-Lv-JlP" firstAttribute="top" secondItem="SKU-4n-FX9" secondAttribute="top" id="Cfl-x4-1Ma"/>
+                <constraint firstItem="fxW-Lv-JlP" firstAttribute="centerX" secondItem="GXt-oK-7qA" secondAttribute="centerX" id="LSV-2G-H9T"/>
+                <constraint firstItem="SKU-4n-FX9" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="QQM-an-P7d"/>
+                <constraint firstAttribute="trailing" secondItem="GXt-oK-7qA" secondAttribute="trailing" id="SOs-hi-Tsc"/>
+                <constraint firstItem="fxW-Lv-JlP" firstAttribute="trailing" secondItem="SKU-4n-FX9" secondAttribute="trailing" id="b51-Uy-xHI"/>
+                <constraint firstItem="fxW-Lv-JlP" firstAttribute="bottom" secondItem="SKU-4n-FX9" secondAttribute="bottom" id="fFw-tg-878"/>
+                <constraint firstAttribute="trailing" secondItem="SKU-4n-FX9" secondAttribute="trailing" constant="4" id="gws-6u-d2d"/>
+                <constraint firstAttribute="bottom" secondItem="SKU-4n-FX9" secondAttribute="bottom" constant="4" id="mfU-yf-3J8"/>
+                <constraint firstItem="fxW-Lv-JlP" firstAttribute="top" secondItem="GXt-oK-7qA" secondAttribute="bottom" constant="4" id="tXX-tX-Gl1"/>
+            </constraints>
+            <size key="customSize" width="150" height="196"/>
+            <connections>
+                <outlet property="dayFrameView" destination="SKU-4n-FX9" id="rQV-CW-VHA"/>
+                <outlet property="dayNameLabel" destination="GXt-oK-7qA" id="dZ8-DO-2F6"/>
+                <outlet property="dayNumberLabel" destination="fxW-Lv-JlP" id="aCA-zp-SCP"/>
+            </connections>
+            <point key="canvasLocation" x="928" y="690.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
