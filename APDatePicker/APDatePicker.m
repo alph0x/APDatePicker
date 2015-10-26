@@ -17,6 +17,7 @@
     NSDateFormatter *monthFormat;
     NSDateFormatter *dayNumberFormat;
     NSDateFormatter *dayShortNameFormat;
+    NSMutableArray *selectedDays;
 }
 
 @end
@@ -37,7 +38,6 @@
 }
 
 - (void) initDateFormatters {
-    //Init
     NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     monthFormat = [[NSDateFormatter alloc] init];
     [monthFormat setLocale:usLocale];
@@ -63,8 +63,8 @@
         self.numberOfDays = MONTH;
     }
     self.days = [self getArrayOfDays:self.numberOfDays startingFromDate:self.startingDate];
-    [self.daysCollection reloadData];
     self.months = [self getArrayOfMonthsFromDays:self.days];
+    selectedDays = [NSMutableArray arrayWithObject:self.startingDate];
     [self.monthCollection reloadData];
 }
 
@@ -112,11 +112,17 @@
     return size;
 }
 
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == self.daysCollection) {
         [self.daysCollection scrollToItemAtIndexPath:indexPath atScrollPosition:10 animated:YES];
-        APDatePickerDayCell *dayCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
-        APDatePickerDayStatus newStatus = dayCell.status != APDAtePickerDayStatusSelected ? APDAtePickerDayStatusNonSelected:APDAtePickerDayStatusSelected; 
+        APDatePickerDayCell *dayCell = (APDatePickerDayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        APDatePickerDayStatus newStatus = dayCell.status == APDAtePickerDayStatusSelected ? APDAtePickerDayStatusNonSelected:APDAtePickerDayStatusSelected;
+        if (newStatus == APDAtePickerDayStatusSelected) {
+            [selectedDays addObject:dayCell.date];
+        }else {
+            [selectedDays removeObject:dayCell.date];
+        }
         [dayCell cellStatusChange:newStatus];
     }
 }
@@ -140,11 +146,14 @@
             [dayCell.dayNumberLabel setText:[dayNumberFormat stringFromDate:day]];
             [dayCell.dayNameLabel setText:[dayShortNameFormat stringFromDate:day]];
             [dayCell cellStatusChange:APDAtePickerDayStatusNonSelected];
-            if (day == [NSDate new]) {
-                [dayCell cellStatusChange:APDAtePickerDayStatusSelected];
-            }
+            for (NSDate *selectedDate in selectedDays) {
+                if (dayCell.date == selectedDate) {
+                    [dayCell cellStatusChange:APDAtePickerDayStatusSelected];
+                    break;
+                }
+            }  
             cell = dayCell;
-            
+                        
     }else 
         if (collectionView == self.monthCollection) {
             NSDate *month = [self.months objectAtIndex:indexPath.row];

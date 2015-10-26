@@ -10,8 +10,8 @@
 #import "APDatePicker.h"
 
 typedef enum {
-    APDAtePickerDayStatusSelected,
-    APDAtePickerDayStatusNonSelected
+    APDAtePickerDayStatusNonSelected,
+    APDAtePickerDayStatusSelected
 } APDatePickerDayStatus;
 
 @protocol APDatePickerDayCellDelegate;
@@ -21,16 +21,16 @@ typedef enum {
 @property (assign, nonatomic) APDatePickerDayStatus status;
 @property (weak  , nonatomic) id<APDatePickerDayCellDelegate>delegate;
 
-@property (strong, nonatomic) IBOutlet UIView *dayFrameView;
-@property (strong, nonatomic) IBOutlet UILabel *dayNumberLabel;
-@property (strong, nonatomic) IBOutlet UILabel *dayNameLabel;
+@property (retain, nonatomic) IBOutlet UIView *dayFrameView;
+@property (retain, nonatomic) IBOutlet UILabel *dayNumberLabel;
+@property (retain, nonatomic) IBOutlet UILabel *dayNameLabel;
 
-@property (strong, nonatomic) UIColor *selectedColor;
-@property (strong, nonatomic) UIColor *selectedBorderColor;
-@property (strong, nonatomic) UIColor *nonSelectedColor;
-@property (strong, nonatomic) UIColor *nonSelectedBorderColor;
-@property (strong, nonatomic) UIFont *font;
-@property (strong, nonatomic) NSDate *date;
+@property (retain, nonatomic) UIColor *selectedColor;
+@property (retain, nonatomic) UIColor *selectedBorderColor;
+@property (retain, nonatomic) UIColor *nonSelectedColor;
+@property (retain, nonatomic) UIColor *nonSelectedBorderColor;
+@property (retain, nonatomic) UIFont *font;
+@property (retain, nonatomic) NSDate *date;
 
 -(void) cellStatusChange:(APDatePickerDayStatus) status;
 

@@ -15,6 +15,9 @@
 }
 
 - (void)awakeFromNib {
+//    self.dayFrameView = [[UIView alloc] init];
+//    self.dayNumberLabel = [[UILabel alloc] init];
+//    self.dayNameLabel = [[UILabel alloc] init];
     
 }
 
