@@ -40,13 +40,14 @@
                                         <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                 </button>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Bmn-E1-te3">
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Bmn-E1-te3">
                                     <rect key="frame" x="28" y="0.0" width="264" height="28"/>
                                     <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="28" id="xhD-jr-c2c"/>
                                     </constraints>
-                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7c2-fZ-inl">
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="7c2-fZ-inl">
                                         <size key="itemSize" width="50" height="50"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -67,6 +68,7 @@
                                 </button>
                             </subviews>
                             <animations/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQC-qR-TbS">
                             <rect key="frame" x="0.0" y="39" width="320" height="49"/>
@@ -77,19 +79,20 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="49" id="M00-oD-4Kf"/>
-                                        <constraint firstAttribute="width" secondItem="M7Q-U6-y0C" secondAttribute="height" multiplier="1:1.8" id="NS5-GX-1JO"/>
+                                        <constraint firstAttribute="width" constant="27" id="gNJ-Yd-hLr"/>
                                     </constraints>
                                     <state key="normal" title="&lt;">
                                         <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                 </button>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GHC-6X-hWZ">
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GHC-6X-hWZ">
                                     <rect key="frame" x="27" y="0.0" width="266" height="49"/>
                                     <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="49" id="c6S-7v-CQG"/>
                                     </constraints>
-                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bIC-85-QUO">
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="bIC-85-QUO">
                                         <size key="itemSize" width="50" height="50"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -101,8 +104,8 @@
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="s8f-hY-4bp" secondAttribute="height" multiplier="1:1.8" id="q0b-ns-ekB"/>
                                         <constraint firstAttribute="height" constant="49" id="wrS-HK-h2g"/>
+                                        <constraint firstAttribute="width" constant="27" id="wwV-tq-cac"/>
                                     </constraints>
                                     <state key="normal" title="&gt;">
                                         <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -110,6 +113,11 @@
                                 </button>
                             </subviews>
                             <animations/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="GHC-6X-hWZ" firstAttribute="leading" secondItem="M7Q-U6-y0C" secondAttribute="trailing" id="MVO-Kf-8e2"/>
+                                <constraint firstItem="s8f-hY-4bp" firstAttribute="leading" secondItem="GHC-6X-hWZ" secondAttribute="trailing" id="m7z-Zx-XTC"/>
+                            </constraints>
                         </stackView>
                     </subviews>
                     <animations/>
@@ -125,7 +133,6 @@
                 </stackView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="0.1450980392" green="0.82745098039999998" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ybc-zw-3sx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="08C-my-Qju"/>
                 <constraint firstItem="ybc-zw-3sx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FTS-kE-XHR"/>

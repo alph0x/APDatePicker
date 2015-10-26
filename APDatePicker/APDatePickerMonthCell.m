@@ -11,7 +11,6 @@
 @implementation APDatePickerMonthCell
 
 - (void)awakeFromNib {
-    // Initialization code
 }
 
 @end

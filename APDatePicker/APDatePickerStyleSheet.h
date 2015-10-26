@@ -17,5 +17,8 @@
 //hex #F5F5F5
 #define _COLOR_LIGHT_GRAY             [UIColor colorWithRed:242/255.0f  green:242/255.0f    blue:242/255.0f alpha:1.0f]
 
+//hex #414141
+#define _COLOR_DARK_GRAY             [UIColor colorWithRed:65/255.0f  green:65/255.0f    blue:65/255.0f alpha:1.0f]
+
 //hex #FFFFFF
 #define _COLOR_WHITE                  [UIColor whiteColor]

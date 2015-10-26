@@ -45,6 +45,9 @@
 @property (strong, nonatomic) UIColor *nonSelectedColor;
 @property (strong, nonatomic) UIColor *nonSelectedBorderColor;
 
+
++(instancetype) initAPDatePickerStartingFromDate:(NSDate *) day forDays:(NSNumber *) numberOfDays; 
+
 @end
 
 @protocol APDatePickerDelegate <NSObject>

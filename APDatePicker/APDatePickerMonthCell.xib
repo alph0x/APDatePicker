@@ -13,9 +13,13 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="266" height="28"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MONTH_YEAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zYg-ok-LSc">
-                        <rect key="frame" x="91" y="7" width="85" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MONTH_YEAR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zYg-ok-LSc">
+                        <rect key="frame" x="0.0" y="0.0" width="266" height="28"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="8wX-Eh-8vp"/>
+                            <constraint firstAttribute="width" constant="266" id="AOy-Bs-va3"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -25,9 +29,14 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="zYg-ok-LSc" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="17q-ew-1Ad"/>
                 <constraint firstItem="zYg-ok-LSc" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="6R5-CU-E4e"/>
+                <constraint firstItem="zYg-ok-LSc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZIq-pB-g8V"/>
+                <constraint firstAttribute="trailing" secondItem="zYg-ok-LSc" secondAttribute="trailing" id="bhT-Ut-Djd"/>
+                <constraint firstItem="zYg-ok-LSc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="i0r-Vh-Rfe"/>
+                <constraint firstAttribute="bottom" secondItem="zYg-ok-LSc" secondAttribute="bottom" id="sSN-Rb-p8B"/>
             </constraints>
             <size key="customSize" width="328" height="50"/>
             <connections>

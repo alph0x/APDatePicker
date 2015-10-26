@@ -33,6 +33,7 @@
     
     
     
+    
 }
 
 - (void) initDateFormatters {
@@ -62,7 +63,9 @@
         self.numberOfDays = MONTH;
     }
     self.days = [self getArrayOfDays:self.numberOfDays startingFromDate:self.startingDate];
+    [self.daysCollection reloadData];
     self.months = [self getArrayOfMonthsFromDays:self.days];
+    [self.monthCollection reloadData];
 }
 
 - (NSArray *) getArrayOfMonthsFromDays:(NSArray *) daysArray {
@@ -95,9 +98,27 @@
 }
 
 #pragma mark UICollectionView Delegates
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionView *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize size;
+    if (collectionView == self.daysCollection) {
+        size = CGSizeMake(38, 49);
+    }else if (collectionView == self.monthCollection) {
+        size = CGSizeMake(266, 28);
+    }
+    return size;
+}
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (collectionView == self.daysCollection) {
+        [self.daysCollection scrollToItemAtIndexPath:indexPath atScrollPosition:10 animated:YES];
+        APDatePickerDayCell *dayCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
+        APDatePickerDayStatus newStatus = dayCell.status != APDAtePickerDayStatusSelected ? APDAtePickerDayStatusNonSelected:APDAtePickerDayStatusSelected; 
+        [dayCell cellStatusChange:newStatus];
+    }
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -113,25 +134,34 @@
     id cell;
         if (collectionView == self.daysCollection) {
             NSDate *day = [self.days objectAtIndex:indexPath.row];
+            [self.daysCollection registerNib:[UINib nibWithNibName:@"APDatePickerDayCell" bundle:nil] forCellWithReuseIdentifier:@"dayCell"];
             APDatePickerDayCell *dayCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
             dayCell.date = day;
-            dayCell.dayFrameView.layer.cornerRadius = 5.f;
-            dayCell.dayFrameView.layer.borderWidth = 1.f;
-            dayCell.dayFrameView.layer.borderColor = _COLOR_LIGHT_GRAY.CGColor;
             [dayCell.dayNumberLabel setText:[dayNumberFormat stringFromDate:day]];
             [dayCell.dayNameLabel setText:[dayShortNameFormat stringFromDate:day]];
+            [dayCell cellStatusChange:APDAtePickerDayStatusNonSelected];
             if (day == [NSDate new]) {
                 [dayCell cellStatusChange:APDAtePickerDayStatusSelected];
             }
+            cell = dayCell;
             
     }else 
         if (collectionView == self.monthCollection) {
             NSDate *month = [self.months objectAtIndex:indexPath.row];
+            [self.monthCollection registerNib:[UINib nibWithNibName:@"APDatePickerMonthCell" bundle:nil] forCellWithReuseIdentifier:@"monthCell"];
             APDatePickerMonthCell *monthCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"monthCell" forIndexPath:indexPath];
             [monthCell.monthLabel setText:[monthFormat stringFromDate:month]];
+            cell = monthCell;
     }
     
     return cell;
+}
+
++(instancetype) initAPDatePickerStartingFromDate:(NSDate *) startingDate forDays:(NSNumber *) numberOfDay {
+    APDatePicker *datePicker = [[APDatePicker alloc] initWithNibName:@"APDatePicker" bundle:nil];
+    datePicker.startingDate = startingDate;
+    datePicker.numberOfDays = numberOfDay;
+    return datePicker;
 }
 
 @end
