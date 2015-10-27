@@ -20,7 +20,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dd6-IV-zdx">
                                 <rect key="frame" x="140" y="256" width="320" height="88"/>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="V10-SN-SB7"/>
                                     <constraint firstAttribute="width" constant="320" id="idF-FD-Ah3"/>

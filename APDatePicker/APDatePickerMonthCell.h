@@ -11,6 +11,5 @@
 @interface APDatePickerMonthCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UILabel *monthLabel;
 
-@property (strong, nonatomic) NSString *year;
-@property (strong, nonatomic) NSString *month;
+@property (strong, nonatomic) NSDate *date;
 @end

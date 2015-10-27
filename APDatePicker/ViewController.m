@@ -21,6 +21,10 @@
     [self.datePickerContainer addSubview:self.datePicker.view];
 }
 
+-(void)APDatePickerSelectedDays:(NSArray *)selectedDays {
+    NSLog(@"%@", selectedDays);
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "APDatePicker.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <APDatePickerDelegate>
 
 @property (strong, nonatomic) APDatePicker *datePicker;
 @property (strong, nonatomic) IBOutlet UIView *datePickerContainer;

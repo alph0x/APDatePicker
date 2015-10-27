@@ -52,6 +52,6 @@
 
 @protocol APDatePickerDelegate <NSObject>
 
--(void) selectedDays:(NSArray *) selectedDays;
+-(void) APDatePickerSelectedDays:(NSArray *) selectedDays;
 
 @end
