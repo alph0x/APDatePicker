@@ -24,6 +24,8 @@
     NSMutableArray *dIndexPaths;
     NSMutableArray *dCells;
     NSIndexPath *dayPagingIndexPath;
+    NSIndexPath *monthPagingIndexPath;
+    NSInteger currentMonthIndex;
     NSInteger currentDayIndex;
 }
 
@@ -181,8 +183,46 @@
 
 #pragma mark IBActions
 - (IBAction)monthBackButtonTapped:(id)sender {
+    for (APDatePickerMonthCell *mCell in mCells) {
+        APDatePickerMonthCell *monthCell = [[self.monthCollection visibleCells] firstObject];
+        if (monthCell == mCell) {
+            monthPagingIndexPath = [NSIndexPath indexPathForRow:dayPagingIndexPath.row + [self.monthCollection visibleCells].count inSection:0];
+            if (monthPagingIndexPath.row < 0) {
+                monthPagingIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                break;
+            }else if (monthPagingIndexPath.row >= ([self.numberOfDays intValue]/30 + 1)) {
+                monthPagingIndexPath = [NSIndexPath indexPathForRow:monthPagingIndexPath.row - [self.monthCollection visibleCells].count inSection:0];
+                break;
+            }
+            [self.monthCollection scrollToItemAtIndexPath:monthPagingIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            [CATransaction setCompletionBlock:^{
+                APDatePickerMonthCell *currentMonthCell = [[self.monthCollection visibleCells] firstObject];
+                [self scrollToDay:currentMonthCell.date];
+            }];
+            break;
+        }
+    }    
 }
 - (IBAction)monthForwardButtonTapped:(id)sender {
+    for (APDatePickerMonthCell *mCell in mCells) {
+        APDatePickerMonthCell *monthCell = [[self.monthCollection visibleCells] firstObject];
+        if (monthCell == mCell) {
+            monthPagingIndexPath = [NSIndexPath indexPathForRow:monthPagingIndexPath.row + [self.monthCollection visibleCells].count inSection:0];
+            if (monthPagingIndexPath.row < 0) {
+                monthPagingIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                break;
+            }else if (monthPagingIndexPath.row >= ([self.numberOfDays intValue]/30 + 1)) {
+                monthPagingIndexPath = [NSIndexPath indexPathForRow:monthPagingIndexPath.row - [self.monthCollection visibleCells].count inSection:0];
+                break;
+            }
+            [self.monthCollection scrollToItemAtIndexPath:monthPagingIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+            [CATransaction setCompletionBlock:^{
+                APDatePickerMonthCell *currentMonthCell = [[self.monthCollection visibleCells] firstObject];
+                [self scrollToDay:currentMonthCell.date];
+            }];
+            break;
+        }
+    }
 }
 - (IBAction)dayBackButtonTapped:(id)sender {
     for (APDatePickerDayCell *dCell in dCells) {
@@ -196,12 +236,9 @@
                 dayPagingIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
                 break;
             }
-            [self scrollToMonth:dayCell.date];
-            [self.daysCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:dayPagingIndexPath.row inSection:0] 
+            [self.daysCollection scrollToItemAtIndexPath:dayPagingIndexPath 
                                         atScrollPosition:10 
                                                 animated:YES];
-            NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
-            [self scrollToMonth:currentMonth];
             [CATransaction setCompletionBlock:^{
                 NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
                 [self scrollToMonth:currentMonth];
@@ -222,8 +259,7 @@
                 dayPagingIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
                 break;
             }
-            
-            [self.daysCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:dayPagingIndexPath.row inSection:0] 
+            [self.daysCollection scrollToItemAtIndexPath:dayPagingIndexPath 
                                         atScrollPosition:10 
                                                 animated:YES];
             [CATransaction setCompletionBlock:^{
@@ -246,6 +282,7 @@
     }
     if (scrollView == self.monthCollection) {
         APDatePickerMonthCell *monthCell = (APDatePickerMonthCell *)[[self.monthCollection visibleCells] firstObject];
+        
         [self scrollToDay:monthCell.date];
     }
 }
