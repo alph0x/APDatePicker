@@ -22,6 +22,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HfF-9a-Y3Z">
+                    <rect key="frame" x="0.0" y="39" width="320" height="49"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="602" placeholderIntrinsicHeight="136" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="ybc-zw-3sx">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                     <subviews>
@@ -39,6 +44,9 @@
                                     <state key="normal" title="&lt;">
                                         <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="monthBackButtonTapped:" destination="-1" eventType="touchUpInside" id="J3U-Gu-zKJ"/>
+                                    </connections>
                                 </button>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Bmn-E1-te3">
                                     <rect key="frame" x="28" y="0.0" width="264" height="28"/>
@@ -65,6 +73,9 @@
                                     <state key="normal" title="&gt;">
                                         <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="monthForwardButtonTapped:" destination="-1" eventType="touchUpInside" id="ywF-Ks-Lw4"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <animations/>
@@ -78,19 +89,23 @@
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="49" id="M00-oD-4Kf"/>
-                                        <constraint firstAttribute="width" constant="27" id="gNJ-Yd-hLr"/>
+                                        <constraint firstAttribute="height" constant="49" id="55Y-a1-JRH"/>
+                                        <constraint firstAttribute="width" constant="27" id="x44-MP-6h2"/>
                                     </constraints>
                                     <state key="normal" title="&lt;">
                                         <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="dayBackButtonTapped:" destination="-1" eventType="touchUpInside" id="wF3-vO-QAC"/>
+                                    </connections>
                                 </button>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GHC-6X-hWZ">
                                     <rect key="frame" x="27" y="0.0" width="266" height="49"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="49" id="c6S-7v-CQG"/>
+                                        <constraint firstAttribute="width" constant="266" id="Dhr-mV-hoj"/>
+                                        <constraint firstAttribute="height" constant="49" id="WX7-pd-DkD"/>
                                     </constraints>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="bIC-85-QUO">
                                         <size key="itemSize" width="50" height="50"/>
@@ -104,20 +119,19 @@
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="49" id="wrS-HK-h2g"/>
-                                        <constraint firstAttribute="width" constant="27" id="wwV-tq-cac"/>
+                                        <constraint firstAttribute="height" constant="49" id="Bvr-0e-F3a"/>
+                                        <constraint firstAttribute="width" constant="27" id="e0Q-LN-X87"/>
                                     </constraints>
                                     <state key="normal" title="&gt;">
                                         <color key="titleColor" red="0.25490197539999998" green="0.25490197539999998" blue="0.25490197539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="dayForwardButtonTapped:" destination="-1" eventType="touchUpInside" id="UaX-WP-wWb"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="GHC-6X-hWZ" firstAttribute="leading" secondItem="M7Q-U6-y0C" secondAttribute="trailing" id="MVO-Kf-8e2"/>
-                                <constraint firstItem="s8f-hY-4bp" firstAttribute="leading" secondItem="GHC-6X-hWZ" secondAttribute="trailing" id="m7z-Zx-XTC"/>
-                            </constraints>
                         </stackView>
                     </subviews>
                     <animations/>
@@ -136,6 +150,10 @@
             <constraints>
                 <constraint firstItem="ybc-zw-3sx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="08C-my-Qju"/>
                 <constraint firstItem="ybc-zw-3sx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FTS-kE-XHR"/>
+                <constraint firstItem="HfF-9a-Y3Z" firstAttribute="bottom" secondItem="QQC-qR-TbS" secondAttribute="bottom" id="JYH-AI-Wy2"/>
+                <constraint firstItem="HfF-9a-Y3Z" firstAttribute="trailing" secondItem="QQC-qR-TbS" secondAttribute="trailing" id="Kdy-71-e5J"/>
+                <constraint firstItem="HfF-9a-Y3Z" firstAttribute="leading" secondItem="QQC-qR-TbS" secondAttribute="leading" id="R8s-bp-vSf"/>
+                <constraint firstItem="HfF-9a-Y3Z" firstAttribute="top" secondItem="QQC-qR-TbS" secondAttribute="top" id="hda-ms-Uu1"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

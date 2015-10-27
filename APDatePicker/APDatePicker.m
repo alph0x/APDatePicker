@@ -23,6 +23,8 @@
     NSMutableArray *mCells;
     NSMutableArray *dIndexPaths;
     NSMutableArray *dCells;
+    NSIndexPath *dayPagingIndexPath;
+    NSInteger currentDayIndex;
 }
 
 @end
@@ -177,11 +179,69 @@
     }
 }
 
+#pragma mark IBActions
+- (IBAction)monthBackButtonTapped:(id)sender {
+}
+- (IBAction)monthForwardButtonTapped:(id)sender {
+}
+- (IBAction)dayBackButtonTapped:(id)sender {
+    for (APDatePickerDayCell *dCell in dCells) {
+        NSArray *visibleCells = [[self.daysCollection visibleCells] sortedArrayUsingComparator:^NSComparisonResult(APDatePickerDayCell *a, APDatePickerDayCell *b) {
+            return [[a date] compare:[b date]];
+        }];;
+        APDatePickerDayCell *dayCell = [visibleCells firstObject];
+        if (dayCell == dCell) {
+            dayPagingIndexPath = [NSIndexPath indexPathForRow:dayPagingIndexPath.row - visibleCells.count inSection:0];
+            if (dayPagingIndexPath.row < 0) {
+                dayPagingIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                break;
+            }
+            [self scrollToMonth:dayCell.date];
+            [self.daysCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:dayPagingIndexPath.row inSection:0] 
+                                        atScrollPosition:10 
+                                                animated:YES];
+            NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
+            [self scrollToMonth:currentMonth];
+            [CATransaction setCompletionBlock:^{
+                NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
+                [self scrollToMonth:currentMonth];
+            }];
+            break;
+        }
+    }
+}
+- (IBAction)dayForwardButtonTapped:(id)sender {
+    for (APDatePickerDayCell *dCell in dCells) {
+        NSArray *visibleCells = [[self.daysCollection visibleCells] sortedArrayUsingComparator:^NSComparisonResult(APDatePickerDayCell *a, APDatePickerDayCell *b) {
+            return [[a date] compare:[b date]];
+        }];;
+        APDatePickerDayCell *dayCell = [visibleCells firstObject];
+        if (dayCell == dCell) {
+            dayPagingIndexPath = [NSIndexPath indexPathForRow:dayPagingIndexPath.row + visibleCells.count inSection:0];
+            if (dayPagingIndexPath.row < 0) {
+                dayPagingIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                break;
+            }
+            
+            [self.daysCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:dayPagingIndexPath.row inSection:0] 
+                                        atScrollPosition:10 
+                                                animated:YES];
+            [CATransaction setCompletionBlock:^{
+                NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
+                [self scrollToMonth:currentMonth];
+            }];
+            break;
+        }
+    }
+}
+
 #pragma mark UICollectionView Delegates
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView == self.daysCollection) {
         NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
+        currentDayIndex = self.daysCollection.contentOffset.x / self.daysCollection.frame.size.width;
+        NSLog(@"Current Page %i", currentDayIndex);
         [self scrollToMonth:currentMonth];
     }
     if (scrollView == self.monthCollection) {
@@ -263,7 +323,14 @@
             [mIndexPaths addObject:indexPath];
             cell = monthCell;
     }
-    
+    NSArray *sortedDays = [[dCells copy] sortedArrayUsingComparator:^NSComparisonResult(APDatePickerDayCell *a, APDatePickerDayCell *b) {
+        return [[a date] compare:[b date]];
+    }];
+    [dCells setArray:sortedDays];
+    NSArray *sortedMonths = [[mCells copy] sortedArrayUsingComparator:^NSComparisonResult(APDatePickerMonthCell *a, APDatePickerMonthCell *b) {
+        return [[a date] compare:[b date]];
+    }];
+    [mCells setArray:sortedMonths];
     return cell;
 }
 
