@@ -11,6 +11,15 @@
 #import "APDatePickerDayCell.h"
 #import "APDatePickerMonthCell.h"
 
+typedef enum ScrollDirection {
+    ScrollDirectionNone,
+    ScrollDirectionRight,
+    ScrollDirectionLeft,
+    ScrollDirectionUp,
+    ScrollDirectionDown,
+    ScrollDirectionCrazy,
+} ScrollDirection;
+
 @protocol APDatePickerDelegate;
 
 @interface APDatePicker : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>

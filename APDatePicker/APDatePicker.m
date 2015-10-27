@@ -19,8 +19,10 @@
     NSDateFormatter *dayShortNameFormat;
     NSDateFormatter *monthNumberFormat;
     NSMutableArray *selectedDays;
-    NSMutableArray *monthsIndexPaths;
-    NSMutableArray *daysIndexPaths;
+    NSMutableArray *mIndexPaths;
+    NSMutableArray *mCells;
+    NSMutableArray *dIndexPaths;
+    NSMutableArray *dCells;
 }
 
 @end
@@ -54,14 +56,16 @@
     if (!self.startingDate) { //if there is no starting Date, starting date will be today.
         self.startingDate = TODAY; 
     }
-    if (!self.numberOfDays) { //if there is no number ofd
+    if (!self.numberOfDays) { //if there is no number of days, default is 30.
         self.numberOfDays = MONTH;
     }
     self.days = [self getArrayOfDays:self.numberOfDays startingFromDate:self.startingDate];
     self.months = [self getArrayOfMonthsFromDays:self.days];
     selectedDays = [NSMutableArray arrayWithObject:self.startingDate];
-    monthsIndexPaths = [NSMutableArray new];
-    daysIndexPaths = [NSMutableArray new];
+    mCells = [NSMutableArray new];
+    dCells = [NSMutableArray new];
+    mIndexPaths = [NSMutableArray new];
+    dIndexPaths = [NSMutableArray new];
     [self.monthCollection reloadData];
     
 }
@@ -131,22 +135,45 @@
 }
 
 -(void) scrollToMonth:(NSDate *) month {
-    for (NSIndexPath *indexPath in monthsIndexPaths) {
-        APDatePickerMonthCell *monthCell = (APDatePickerMonthCell *)[self.monthCollection cellForItemAtIndexPath:indexPath];
-        if ([monthNumberFormat stringFromDate:monthCell.date] == [monthNumberFormat stringFromDate:month]) {
-            [self.monthCollection scrollToItemAtIndexPath:indexPath atScrollPosition:10 animated:YES];
-            break;
+    NSIndexPath *nextIndexPath;
+    for (APDatePickerMonthCell *monthCell in mCells) {
+        NSIndexPath *indexPath = [mIndexPaths objectAtIndex:[mCells indexOfObject:monthCell]];
+        NSInteger component = (NSCalendarUnitMonth | NSCalendarUnitYear);
+        NSDateComponents *dateA = [calendar components:component fromDate:month];
+        NSDateComponents *dateB = [calendar components:component fromDate:monthCell.date];
+        NSComparisonResult results = [[calendar dateFromComponents:dateB] compare:[calendar dateFromComponents:dateA]];
+            if (results == NSOrderedAscending) {
+                nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row + 1)
+                                                inSection:0];
+            
+        } else 
+            if (results == NSOrderedDescending) {
+                nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row - 1)
+                                                    inSection:0];
+                
+        } else {
+            nextIndexPath = indexPath;
         }
+        
+        [self.monthCollection scrollToItemAtIndexPath:nextIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+        break;
     }
 }
 
 -(void) scrollToDay:(NSDate *) day {
-    for (NSIndexPath *indexPath in daysIndexPaths) {
-        APDatePickerDayCell *dayCell = (APDatePickerDayCell *)[self.daysCollection cellForItemAtIndexPath:indexPath];
-        if ([monthNumberFormat stringFromDate:dayCell.date] == [monthNumberFormat stringFromDate:day]) {
-            [self.daysCollection scrollToItemAtIndexPath:indexPath atScrollPosition:10 animated:YES];
+    for (APDatePickerDayCell *dayCell in dCells) {
+        NSIndexPath *indexPath = [dIndexPaths objectAtIndex:[dCells indexOfObject:dayCell]];
+        NSInteger component = (NSCalendarUnitMonth | NSCalendarUnitYear);
+        NSDateComponents *dateA = [calendar components:component fromDate:day];
+        NSDateComponents *dateB = [calendar components:component fromDate:dayCell.date];
+        NSComparisonResult results = [[calendar dateFromComponents:dateB] compare:[calendar dateFromComponents:dateA]];
+        NSIndexPath *nextIndexPath = indexPath;
+        if (results == NSOrderedSame) {
+            [self.daysCollection scrollToItemAtIndexPath:nextIndexPath atScrollPosition:10 animated:YES];
             break;
+            
         }
+        
     }
 }
 
@@ -191,6 +218,7 @@
             }
             [dayCell cellStatusChange:newStatus];
             NSLog(@"%@", [selectedDays description]);
+            [self scrollToMonth:dayCell.date];
             [self.delegate APDatePickerSelectedDays:selectedDays];
     }
 }
@@ -220,7 +248,8 @@
                     break;
                 }
             }
-            [daysIndexPaths addObject:indexPath];
+            [dCells addObject:dayCell];
+            [dIndexPaths addObject:indexPath];
             cell = dayCell;
                         
     }else 
@@ -230,7 +259,8 @@
             APDatePickerMonthCell *monthCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"monthCell" forIndexPath:indexPath];
             [monthCell.monthLabel setText:[monthFormat stringFromDate:month]];
             monthCell.date = month;
-            [monthsIndexPaths addObject:indexPath];
+            [mCells addObject:monthCell];
+            [mIndexPaths addObject:indexPath];
             cell = monthCell;
     }
     
