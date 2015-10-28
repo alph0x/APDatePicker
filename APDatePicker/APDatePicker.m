@@ -282,6 +282,9 @@
         [CATransaction setCompletionBlock:^{
         NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
         currentDayIndex = self.daysCollection.contentOffset.x / self.daysCollection.frame.size.width;
+        dayPagingIndexPath = [NSIndexPath indexPathForRow:currentDayIndex * [self.daysCollection visibleCells].count
+                                                inSection:0];
+        NSLog(@"DAY SCROLL indexPath.row = %i", dayPagingIndexPath.row);
         [self scrollToMonth:currentMonth];
         }];
         
@@ -289,6 +292,12 @@
     if (scrollView == self.monthCollection) {
         [CATransaction setCompletionBlock:^{
         APDatePickerMonthCell *monthCell = (APDatePickerMonthCell *)[[self.monthCollection visibleCells] firstObject];
+            for (APDatePickerMonthCell *mCell in self.months) {
+                if (monthCell.date == mCell.date) {
+                    monthPagingIndexPath = [NSIndexPath indexPathForItem:mCell.indexPath.row inSection:0];
+                }
+            }
+            NSLog(@"MONTH SCROLL indexPath.row = %i", monthPagingIndexPath.row);
         [self scrollToDay:monthCell.date];
         }];
         
