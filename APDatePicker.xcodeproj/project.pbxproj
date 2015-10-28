@@ -11,6 +11,8 @@
 		514281C11BDA7E710050B73F /* APDatePickerDayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 514281BF1BDA7E710050B73F /* APDatePickerDayCell.xib */; };
 		514281C51BDA7E910050B73F /* APDatePickerMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 514281C31BDA7E910050B73F /* APDatePickerMonthCell.m */; };
 		514281C61BDA7E910050B73F /* APDatePickerMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 514281C41BDA7E910050B73F /* APDatePickerMonthCell.xib */; };
+		5162C3331BE15C4400DDC570 /* APDatePickerBackwardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5162C3321BE15C4400DDC570 /* APDatePickerBackwardButton.m */; };
+		5162C3361BE15C6E00DDC570 /* APDatePickerForwardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5162C3351BE15C6E00DDC570 /* APDatePickerForwardButton.m */; };
 		51A5F6631BDA798F00BF1441 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A5F6621BDA798F00BF1441 /* main.m */; };
 		51A5F6661BDA798F00BF1441 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A5F6651BDA798F00BF1441 /* AppDelegate.m */; };
 		51A5F6691BDA798F00BF1441 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A5F6681BDA798F00BF1441 /* ViewController.m */; };
@@ -48,6 +50,10 @@
 		514281C31BDA7E910050B73F /* APDatePickerMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APDatePickerMonthCell.m; sourceTree = "<group>"; };
 		514281C41BDA7E910050B73F /* APDatePickerMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APDatePickerMonthCell.xib; sourceTree = "<group>"; };
 		514281C71BDA8EF50050B73F /* APDatePickerStyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APDatePickerStyleSheet.h; sourceTree = "<group>"; };
+		5162C3311BE15C4400DDC570 /* APDatePickerBackwardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APDatePickerBackwardButton.h; sourceTree = "<group>"; };
+		5162C3321BE15C4400DDC570 /* APDatePickerBackwardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APDatePickerBackwardButton.m; sourceTree = "<group>"; };
+		5162C3341BE15C6E00DDC570 /* APDatePickerForwardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APDatePickerForwardButton.h; sourceTree = "<group>"; };
+		5162C3351BE15C6E00DDC570 /* APDatePickerForwardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APDatePickerForwardButton.m; sourceTree = "<group>"; };
 		51A5F65E1BDA798F00BF1441 /* APDatePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APDatePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A5F6621BDA798F00BF1441 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		51A5F6641BDA798F00BF1441 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -132,6 +138,10 @@
 				514281C21BDA7E910050B73F /* APDatePickerMonthCell.h */,
 				514281C31BDA7E910050B73F /* APDatePickerMonthCell.m */,
 				514281C41BDA7E910050B73F /* APDatePickerMonthCell.xib */,
+				5162C3341BE15C6E00DDC570 /* APDatePickerForwardButton.h */,
+				5162C3351BE15C6E00DDC570 /* APDatePickerForwardButton.m */,
+				5162C3311BE15C4400DDC570 /* APDatePickerBackwardButton.h */,
+				5162C3321BE15C4400DDC570 /* APDatePickerBackwardButton.m */,
 				51A5F66D1BDA798F00BF1441 /* Assets.xcassets */,
 				51A5F66F1BDA798F00BF1441 /* LaunchScreen.storyboard */,
 				51A5F6721BDA798F00BF1441 /* Info.plist */,
@@ -302,6 +312,8 @@
 				51A5F6691BDA798F00BF1441 /* ViewController.m in Sources */,
 				514281C51BDA7E910050B73F /* APDatePickerMonthCell.m in Sources */,
 				514281C01BDA7E710050B73F /* APDatePickerDayCell.m in Sources */,
+				5162C3331BE15C4400DDC570 /* APDatePickerBackwardButton.m in Sources */,
+				5162C3361BE15C6E00DDC570 /* APDatePickerForwardButton.m in Sources */,
 				51A5F6661BDA798F00BF1441 /* AppDelegate.m in Sources */,
 				51A5F6971BDA79CA00BF1441 /* APDatePicker.m in Sources */,
 				51A5F6631BDA798F00BF1441 /* main.m in Sources */,

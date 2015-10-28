@@ -227,10 +227,12 @@
             
             NSLog(@"MONTH indexPath.row = %i", monthPagingIndexPath.row);
             [self.monthCollection scrollToItemAtIndexPath:monthPagingIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-            [CATransaction setCompletionBlock:^{
-                APDatePickerMonthCell *currentMonthCell = [[self.monthCollection visibleCells] firstObject];
-                [self scrollToDay:currentMonthCell.date];
-            }];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [CATransaction setCompletionBlock:^{
+                    APDatePickerMonthCell *currentMonthCell = [[self.monthCollection visibleCells] firstObject];
+                    [self scrollToDay:currentMonthCell.date];
+                }];
+            });
             break;
         }
     }
@@ -267,9 +269,13 @@
             [self.daysCollection scrollToItemAtIndexPath:dayPagingIndexPath 
                                         atScrollPosition:10 
                                                 animated:YES];
-            [CATransaction setCompletionBlock:^{
-                [self scrollToMonth:[self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]]];
-            }];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [CATransaction setCompletionBlock:^{
+                    NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
+                    [self scrollToMonth:currentMonth];
+                }];
+            });
+            
             break;
         }
     }
