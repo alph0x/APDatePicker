@@ -30,6 +30,8 @@ typedef enum {
 @property (retain, nonatomic) UIColor *nonSelectedColor;
 @property (retain, nonatomic) UIColor *nonSelectedBorderColor;
 @property (retain, nonatomic) UIFont *font;
+
+@property (retain, nonatomic) NSIndexPath *indexPath;
 @property (retain, nonatomic) NSDate *date;
 
 -(void) cellStatusChange:(APDatePickerDayStatus) status;

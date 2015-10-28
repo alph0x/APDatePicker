@@ -12,13 +12,9 @@
 #import "APDatePickerMonthCell.h"
 
 typedef enum ScrollDirection {
-    ScrollDirectionNone,
-    ScrollDirectionRight,
-    ScrollDirectionLeft,
-    ScrollDirectionUp,
-    ScrollDirectionDown,
-    ScrollDirectionCrazy,
-} ScrollDirection;
+    APDatePickerDirectionBackward,
+    APDatePickerDirectionForward
+} APDatePickerDirection;
 
 @protocol APDatePickerDelegate;
 

@@ -3,10 +3,34 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "__38-[APDatePicker monthBackButtonTapped:]_block_invoke:APDatePicker.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.monthCollection visibleCells]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[APDatePicker scrollToDay:]:APDatePicker.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dCells">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[APDatePicker getTheHighlightedMonthOfDays:]:APDatePicker.m">
          <PersistentStrings>
             <PersistentString
                value = "[[month stringFromDate:day] intValue]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[APDatePicker collectionView:cellForItemAtIndexPath:]:APDatePicker.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dCells">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
