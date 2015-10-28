@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "APDatePicker/APDatePicker.m"
-            timestampString = "467754719.26243"
+            timestampString = "467761532.247658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "-scrollToMonth:"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
+            landmarkName = "-scrollViewDidEndDecelerating:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "APDatePicker/APDatePicker.m"
-            timestampString = "467758745.336279"
+            timestampString = "467761532.247658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "-changeDayPage:"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "-scrollToMonth:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

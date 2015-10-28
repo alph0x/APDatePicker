@@ -10,6 +10,7 @@
 
 #define TODAY [NSDate new]
 #define MONTH [NSNumber numberWithInt:30]
+#define YEAR 12
 
 @interface APDatePicker () {
     NSCalendar *calendar;
@@ -162,13 +163,20 @@
         NSDateComponents *dateA = [calendar components:component fromDate:month];
         NSDateComponents *dateB = [calendar components:component fromDate:monthCell.date];
         NSComparisonResult results = [[calendar dateFromComponents:dateB] compare:[calendar dateFromComponents:dateA]];
+        int index = (dateA.month - dateB.month);
+        if (index < 0) {
+            if (dateA.year > dateB.year) {
+                index = dateA.month + (YEAR - dateB.month);
+            }
+        }
+        NSLog(@"Month Index Row: %i, Difference Index Row: %i", monthCell.indexPath.row, index);
             if (results == NSOrderedAscending) {
-                nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row + 1)
+                nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row + index)
                                                 inSection:0];
             
         } else 
             if (results == NSOrderedDescending) {
-                nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row - 1)
+                nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row - index)
                                                     inSection:0];
                 
         } else {
@@ -285,28 +293,30 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView == self.daysCollection) {
-        [CATransaction setCompletionBlock:^{
-        NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
-        currentDayIndex = self.daysCollection.contentOffset.x / self.daysCollection.frame.size.width;
-        dayPagingIndexPath = [NSIndexPath indexPathForRow:currentDayIndex * [self.daysCollection visibleCells].count
-                                                inSection:0];
-        NSLog(@"DAY SCROLL indexPath.row = %i", dayPagingIndexPath.row);
-        [self scrollToMonth:currentMonth];
-        }];
-        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [CATransaction setCompletionBlock:^{
+                NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
+                currentDayIndex = self.daysCollection.contentOffset.x / self.daysCollection.frame.size.width;
+                dayPagingIndexPath = [NSIndexPath indexPathForRow:currentDayIndex * [self.daysCollection visibleCells].count
+                                                        inSection:0];
+                NSLog(@"DAY SCROLL indexPath.row = %i", dayPagingIndexPath.row);
+                [self scrollToMonth:currentMonth];
+            }];
+        });
     }
     if (scrollView == self.monthCollection) {
-        [CATransaction setCompletionBlock:^{
-        APDatePickerMonthCell *monthCell = (APDatePickerMonthCell *)[[self.monthCollection visibleCells] firstObject];
-            for (APDatePickerMonthCell *mCell in self.months) {
-                if (monthCell.date == mCell.date) {
-                    monthPagingIndexPath = [NSIndexPath indexPathForItem:mCell.indexPath.row inSection:0];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [CATransaction setCompletionBlock:^{
+                APDatePickerMonthCell *monthCell = (APDatePickerMonthCell *)[[self.monthCollection visibleCells] firstObject];
+                for (APDatePickerMonthCell *mCell in self.months) {
+                    if (monthCell.date == mCell.date) {
+                        monthPagingIndexPath = [NSIndexPath indexPathForItem:mCell.indexPath.row inSection:0];
+                    }
                 }
-            }
-            NSLog(@"MONTH SCROLL indexPath.row = %i", monthPagingIndexPath.row);
-        [self scrollToDay:monthCell.date];
-        }];
-        
+                NSLog(@"MONTH SCROLL indexPath.row = %i", monthPagingIndexPath.row);
+                [self scrollToDay:monthCell.date];
+            }];
+        });
     }
 }
 

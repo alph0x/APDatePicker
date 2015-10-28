@@ -11,6 +11,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[APDatePicker collectionView:cellForItemAtIndexPath:]:APDatePicker.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dCells">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[APDatePicker scrollToDay:]:APDatePicker.m">
          <PersistentStrings>
             <PersistentString
@@ -27,10 +35,19 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[APDatePicker collectionView:cellForItemAtIndexPath:]:APDatePicker.m">
+         contextName = "-[APDatePicker prepareArrayAndDatesForView]:APDatePicker.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[APDatePicker getArrayOfMonthsFromDays:]:APDatePicker.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[APDatePicker getArrayOfDays:startingFromDate:]:APDatePicker.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[APDatePicker scrollToMonth:]:APDatePicker.m">
          <PersistentStrings>
             <PersistentString
-               value = "dCells">
+               value = "[calendar dateFromComponents:dateB]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
