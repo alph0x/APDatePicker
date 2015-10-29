@@ -384,13 +384,7 @@
             [dayCell.dayNumberLabel setText:[dayNumberFormat stringFromDate:dCell.date]];
             [dayCell.dayNameLabel setText:[dayShortNameFormat stringFromDate:dCell.date]];
             dayCell.indexPath = indexPath;
-            [dayCell cellStatusChange:APDAtePickerDayStatusNonSelected];
-            for (NSDate *selectedDate in selectedDays) {
-                if (dayCell.date == selectedDate) {
-                    [dayCell cellStatusChange:APDAtePickerDayStatusSelected];
-                    break;
-                }
-            }
+            [dayCell cellStatusChange:[self defineStatusForCell:dayCell]];
             cell = dayCell;
                         
     }else 
@@ -410,6 +404,20 @@
                        self.monthCollection.frame.size.width);
     
     return cell;
+}
+
+-(APDatePickerDayStatus) defineStatusForCell:(APDatePickerDayCell *) dayCell {
+    NSDate *dayCellDate = dayCell.date;
+    for (NSDate *date in selectedDays) {
+        NSInteger components = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
+        NSDateComponents *dayCellDateComponents = [calendar components:components fromDate:dayCellDate];
+        NSDateComponents *dateComponents = [calendar components:components fromDate:date];
+        NSComparisonResult results = [[calendar dateFromComponents:dayCellDateComponents] compare:[calendar dateFromComponents:dateComponents]];
+        if (results == NSOrderedSame) {
+            return APDAtePickerDayStatusSelected;
+        }
+    }
+    return APDAtePickerDayStatusNonSelected;
 }
 
 +(instancetype) initAPDatePickerStartingFromDate:(NSDate *) startingDate forDays:(NSNumber *) numberOfDay {
