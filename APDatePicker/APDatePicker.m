@@ -169,7 +169,6 @@
                 index = dateA.month + (YEAR - dateB.month);
             }
         }
-        NSLog(@"Month Index Row: %i, Difference Index Row: %i", monthCell.indexPath.row, index);
             if (results == NSOrderedAscending) {
                 nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row + index)
                                                 inSection:0];
@@ -183,8 +182,17 @@
             nextIndexPath = indexPath;
         }
         monthPagingIndexPath = nextIndexPath;
-        NSLog(@"MONTH AUTO indexPath.row = %i", monthPagingIndexPath.row);
-        [self.monthCollection scrollToItemAtIndexPath:nextIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+        APDatePickerDayCell *dayCell;
+        for (APDatePickerDayCell *dCell in self.days) {
+            if (dCell.date == month) {
+                dayCell = dCell;
+                break;
+            }
+        }
+        if (dayCell.indexPath.row == 0) {
+            monthPagingIndexPath = dayCell.indexPath;
+        }
+        [self.monthCollection scrollToItemAtIndexPath:monthPagingIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
         break;
     }
 }
@@ -199,7 +207,6 @@
         NSIndexPath *nextIndexPath = indexPath;
         if (results == NSOrderedSame) {
             dayPagingIndexPath = nextIndexPath;
-            NSLog(@"DAY AUTO indexPath.row = %i", dayPagingIndexPath.row);
             [self.daysCollection scrollToItemAtIndexPath:nextIndexPath atScrollPosition:10 animated:YES];
             break;
             
@@ -227,18 +234,16 @@
             monthPagingIndexPath = [NSIndexPath indexPathForRow:monthPagingIndexPath.row + index inSection:0];
             if (monthPagingIndexPath.row < 0) {
                 monthPagingIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                break;
             }else if (monthPagingIndexPath.row >= ([self.numberOfDays intValue]/30 + 1)) {
                 monthPagingIndexPath = [NSIndexPath indexPathForRow:monthPagingIndexPath.row - index inSection:0];
                 break;
             }
-            
-            NSLog(@"MONTH indexPath.row = %i", monthPagingIndexPath.row);
             [self.monthCollection scrollToItemAtIndexPath:monthPagingIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [CATransaction setCompletionBlock:^{
-                    APDatePickerMonthCell *currentMonthCell = [[self.monthCollection visibleCells] firstObject];
-                    [self scrollToDay:currentMonthCell.date];
+//                    APDatePickerMonthCell *currentMonthCell = [[self.monthCollection visibleCells] firstObject];
+//                    [self scrollToDay:currentMonthCell.date];
+                    [self scrollViewDidEndDecelerating:self.monthCollection];
                 }];
             });
             break;
@@ -273,17 +278,10 @@
             }else if (dayPagingIndexPath.row > self.days.count){
                 dayPagingIndexPath = [NSIndexPath indexPathForRow:dayPagingIndexPath.row - index inSection:0];
             }
-            NSLog(@"DAY indexPath.row = %i", dayPagingIndexPath.row);
             [self.daysCollection scrollToItemAtIndexPath:dayPagingIndexPath 
                                         atScrollPosition:10 
                                                 animated:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [CATransaction setCompletionBlock:^{
-                    NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
-                    [self scrollToMonth:currentMonth];
-                }];
-            });
-            
+            [self scrollViewDidEndDecelerating:self.daysCollection];
             break;
         }
     }
@@ -293,27 +291,41 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView == self.daysCollection) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [CATransaction setCompletionBlock:^{
-                NSDate *currentMonth = [self getTheHighlightedMonthOfDays:[self.daysCollection visibleCells]];
+                NSArray *visibleCells = [[self.daysCollection visibleCells] sortedArrayUsingComparator:^NSComparisonResult(APDatePickerDayCell *a, APDatePickerDayCell *b) {
+                    return [[a date] compare:[b date]];
+                }];
+                NSDate *currentMonth = [self getTheHighlightedMonthOfDays:visibleCells];
+                APDatePickerDayCell *dCell = [visibleCells firstObject];
+                if (dCell.indexPath.row == 0) {
+                    currentMonth = dCell.date;
+                }
                 currentDayIndex = self.daysCollection.contentOffset.x / self.daysCollection.frame.size.width;
-                dayPagingIndexPath = [NSIndexPath indexPathForRow:currentDayIndex * [self.daysCollection visibleCells].count
+                dayPagingIndexPath = [NSIndexPath indexPathForRow:currentDayIndex * visibleCells.count
                                                         inSection:0];
-                NSLog(@"DAY SCROLL indexPath.row = %i", dayPagingIndexPath.row);
+                
                 [self scrollToMonth:currentMonth];
             }];
         });
     }
     if (scrollView == self.monthCollection) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [CATransaction setCompletionBlock:^{
-                APDatePickerMonthCell *monthCell = (APDatePickerMonthCell *)[[self.monthCollection visibleCells] firstObject];
+                NSLog(@"%i", [[self.monthCollection visibleCells] count]);
+                NSMutableArray *visibleCells = [NSMutableArray arrayWithArray:[[self.monthCollection visibleCells] sortedArrayUsingComparator:^NSComparisonResult(APDatePickerDayCell *a, APDatePickerDayCell *b) {
+                    return [[a date] compare:[b date]];
+                }]];
+                if (visibleCells.count > 1) {
+                    [visibleCells removeObjectAtIndex:0];
+                }
+                APDatePickerMonthCell *monthCell = (APDatePickerMonthCell *)[visibleCells firstObject];
                 for (APDatePickerMonthCell *mCell in self.months) {
                     if (monthCell.date == mCell.date) {
-                        monthPagingIndexPath = [NSIndexPath indexPathForItem:mCell.indexPath.row inSection:0];
+                        monthPagingIndexPath = [NSIndexPath indexPathForItem:monthCell.indexPath.row inSection:0];
+                        break;
                     }
                 }
-                NSLog(@"MONTH SCROLL indexPath.row = %i", monthPagingIndexPath.row);
                 [self scrollToDay:monthCell.date];
             }];
         });
