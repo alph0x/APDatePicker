@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "APDatePicker/APDatePicker.m"
-            timestampString = "467822001.965822"
+            filePath = "APDatePicker/ViewController.m"
+            timestampString = "468357030.978379"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
-            landmarkName = "-defineStatusForCell:"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "-APDatePickerSelectedDays:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -139,12 +139,12 @@
             monthValueB = 0 + tempMonth;
             dateMonthB = day;
         }
-        if (monthValueA == [[monthNumberFormat stringFromDate:day] intValue]) {
-            monthA++;
+            if (monthValueA == [[monthNumberFormat stringFromDate:day] intValue]) {
+                monthA++;
         }else
             if (monthValueB == [[monthNumberFormat stringFromDate:day] intValue]) {
                 monthB++;
-            }
+        }
         
     }
     if (monthA > monthB) {
@@ -169,8 +169,8 @@
                 index = dateA.month + (YEAR - dateB.month);
             }
         }
-        if (results == NSOrderedAscending) {
-            nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row + index)
+            if (results == NSOrderedAscending) {
+                nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row + index)
                                                 inSection:0];
             
         } else 
@@ -178,9 +178,9 @@
                 nextIndexPath =  [NSIndexPath indexPathForRow:(indexPath.row - index)
                                                     inSection:0];
                 
-            } else {
-                nextIndexPath = indexPath;
-            }
+        } else {
+            nextIndexPath = indexPath;
+        }
         monthPagingIndexPath = nextIndexPath;
         APDatePickerDayCell *dayCell;
         for (APDatePickerDayCell *dCell in self.days) {
@@ -215,14 +215,6 @@
     }
 }
 
--(NSComparisonResult) compareDate:(NSDate *) date1 withDate:(NSDate *) date2 {
-    NSInteger component = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
-    NSDateComponents *dateA = [calendar components:component fromDate:date1];
-    NSDateComponents *dateB = [calendar components:component fromDate:date2];
-    NSComparisonResult results = [[calendar dateFromComponents:dateB] compare:[calendar dateFromComponents:dateA]];
-    return results;
-}
-
 #pragma mark IBActions
 - (IBAction)monthBackButtonTapped:(id)sender {
     [self changeMonthPage:APDatePickerDirectionBackward]; 
@@ -249,8 +241,8 @@
             [self.monthCollection scrollToItemAtIndexPath:monthPagingIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [CATransaction setCompletionBlock:^{
-                    //                    APDatePickerMonthCell *currentMonthCell = [[self.monthCollection visibleCells] firstObject];
-                    //                    [self scrollToDay:currentMonthCell.date];
+//                    APDatePickerMonthCell *currentMonthCell = [[self.monthCollection visibleCells] firstObject];
+//                    [self scrollToDay:currentMonthCell.date];
                     [self scrollViewDidEndDecelerating:self.monthCollection];
                 }];
             });
@@ -320,6 +312,7 @@
     if (scrollView == self.monthCollection) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [CATransaction setCompletionBlock:^{
+                NSLog(@"%i", [[self.monthCollection visibleCells] count]);
                 NSMutableArray *visibleCells = [NSMutableArray arrayWithArray:[[self.monthCollection visibleCells] sortedArrayUsingComparator:^NSComparisonResult(APDatePickerDayCell *a, APDatePickerDayCell *b) {
                     return [[a date] compare:[b date]];
                 }]];
@@ -345,36 +338,30 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGSize size;
-    if (collectionView == self.daysCollection) {
-        size = CGSizeMake(38, 49);
+        if (collectionView == self.daysCollection) {
+            size = CGSizeMake(38, 49);
     }else 
         if (collectionView == self.monthCollection) {
             size = CGSizeMake(266, 28);
-        }
+    }
     return size;
 }
 
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView == self.daysCollection) {
-        [self.daysCollection scrollToItemAtIndexPath:indexPath atScrollPosition:10 animated:YES];
-        APDatePickerDayCell *dayCell = (APDatePickerDayCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        APDatePickerDayStatus newStatus = dayCell.status == APDAtePickerDayStatusSelected ? APDAtePickerDayStatusNonSelected:APDAtePickerDayStatusSelected;
-        if (newStatus == APDAtePickerDayStatusSelected) {
-            [selectedDays addObject:dayCell.date];
-        }else {
-            for (NSDate *date in selectedDays) {
-                if ([self compareDate:date withDate:dayCell.date] == NSOrderedSame) {
-                    [selectedDays removeObject:date];
-                    break;
-                }
+        if (collectionView == self.daysCollection) {
+            [self.daysCollection scrollToItemAtIndexPath:indexPath atScrollPosition:10 animated:YES];
+            APDatePickerDayCell *dayCell = (APDatePickerDayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+            APDatePickerDayStatus newStatus = dayCell.status == APDAtePickerDayStatusSelected ? APDAtePickerDayStatusNonSelected:APDAtePickerDayStatusSelected;
+            if (newStatus == APDAtePickerDayStatusSelected) {
+                [selectedDays addObject:dayCell.date];
+            }else {
+                [selectedDays removeObject:dayCell.date];
             }
-            
-        }
-        [dayCell cellStatusChange:newStatus];
-        NSLog(@"%@", [selectedDays description]);
-        [self scrollToMonth:dayCell.date];
-        [self.delegate APDatePickerSelectedDays:selectedDays];
+            [dayCell cellStatusChange:newStatus];
+            NSLog(@"%@", [selectedDays description]);
+            [self scrollToMonth:dayCell.date];
+            [self.delegate APDatePickerSelectedDays:selectedDays];
     }
 }
 
@@ -389,17 +376,17 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     id cell;
-    if (collectionView == self.daysCollection) {
-        [self.daysCollection registerNib:[UINib nibWithNibName:@"APDatePickerDayCell" bundle:nil] forCellWithReuseIdentifier:@"dayCell"];
-        APDatePickerDayCell *dayCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
-        APDatePickerDayCell *dCell = [self.days objectAtIndex:indexPath.row];
-        dayCell.date = dCell.date;
-        [dayCell.dayNumberLabel setText:[dayNumberFormat stringFromDate:dCell.date]];
-        [dayCell.dayNameLabel setText:[dayShortNameFormat stringFromDate:dCell.date]];
-        dayCell.indexPath = indexPath;
-        [dayCell cellStatusChange:[self defineStatusForCell:dayCell]];
-        cell = dayCell;
-        
+        if (collectionView == self.daysCollection) {
+            [self.daysCollection registerNib:[UINib nibWithNibName:@"APDatePickerDayCell" bundle:nil] forCellWithReuseIdentifier:@"dayCell"];
+            APDatePickerDayCell *dayCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
+            APDatePickerDayCell *dCell = [self.days objectAtIndex:indexPath.row];
+            dayCell.date = dCell.date;
+            [dayCell.dayNumberLabel setText:[dayNumberFormat stringFromDate:dCell.date]];
+            [dayCell.dayNameLabel setText:[dayShortNameFormat stringFromDate:dCell.date]];
+            dayCell.indexPath = indexPath;
+            [dayCell cellStatusChange:[self defineStatusForCell:dayCell]];
+            cell = dayCell;
+                        
     }else 
         if (collectionView == self.monthCollection) {
             [self.monthCollection registerNib:[UINib nibWithNibName:@"APDatePickerMonthCell" bundle:nil] forCellWithReuseIdentifier:@"monthCell"];
@@ -409,7 +396,7 @@
             monthCell.date = mCell.date;
             monthCell.indexPath = indexPath;
             cell = monthCell;
-        }
+    }
     
     daysPages = floor(self.daysCollection.contentSize.width /    
                       self.daysCollection.frame.size.width);
